@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.woosan.root.mapper.TradeBoardMapper">
+<resultMap type="com.woosan.root.dto.TradeBoardDTO" id="trade">
+<result property="id" column="id"/>
+<result property="date" column="date"/>
+<result property="write_no" column="write_no"/>
+<result property="addr" column="addr"/>
+<result property="title" column="title"/>
+<result property="content" column="content"/>
+<result property="status" column="int"/>
+<result property="img_addr" column="img_addr"/>
+<result property="hit" column="hit"/>
+<result property="cate" column="cate"/>
+
+</resultMap>
+<select id="tradeBoardView" resultMap="trade">
+select * from trade order by write_no desc
+</select>
+</mapper>

@@ -1,7 +1,5 @@
 package com.woosan.root.dto;
 
-import org.springframework.stereotype.Repository;
-@Repository
 public class kakaoDTO {
 private String name, email;
 
