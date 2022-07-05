@@ -20,4 +20,10 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 		return arr;
 	}
 
+	@Override
+	public void writeBoard(TradeBoardDTO dto) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
