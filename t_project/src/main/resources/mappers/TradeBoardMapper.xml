@@ -16,9 +16,13 @@
 <result property="img_addr" column="img_addr"/>
 <result property="hit" column="hit"/>
 <result property="cate" column="cate"/>
+<result property="price" column="price"/>
 
 </resultMap>
 <select id="tradeBoardView" resultMap="trade">
 select * from trade order by write_no desc
 </select>
+<insert id="writeBoard">
+insert into trade()
+</insert>
 </mapper>

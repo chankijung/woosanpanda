@@ -2,7 +2,13 @@ package com.woosan.root.dto;
 
 public class TradeBoardDTO {
 	private String id, addr, title, content, img_addr,cate;
-	private int write_no,status,hit;
+	private int write_no,status,hit,price;
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	public String getId() {
 		return id;
 	}

@@ -17,8 +17,8 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 
 public class S3Util {
 
-	private String accessKey = "¿¢¼¼½ºÅ°"; // ¿¢¼¼½º Å°
-	private String secretKey = "º¸¾È ¿¢¼¼½ºÅ°"; // º¸¾È ¿¢¼¼½º Å°
+	private String accessKey = "AKIAYRKVC7P52J42ESUQ"; // ¿¢¼¼½º Å°
+	private String secretKey = "z1/em0xASy8nvMRCbbU9/jLMuE6shfi1wtWuGUmC"; // º¸¾È ¿¢¼¼½º Å°
 
 	private AmazonS3 conn;
 

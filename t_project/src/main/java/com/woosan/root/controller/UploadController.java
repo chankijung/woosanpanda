@@ -38,41 +38,6 @@ public class UploadController {
 
 	@Inject
 	private UserService userService;
-
-	//자격증 & 신분증 이미지 업로드
-	@ResponseBody
-	@RequestMapping(value = "/uploadAjaxCert", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-	public String uploadAjaxCertificate(MultipartFile file) throws Exception {
-
-		logger.info("자격증");
-		logger.info("originalName: " + file.getOriginalFilename());
-		String uploadpath = "almom/certificate";
-
-		ResponseEntity<String> img_path = new ResponseEntity<>(
-				UploadFileUtils.uploadFile(uploadpath, file.getOriginalFilename(), file.getBytes()),
-				HttpStatus.CREATED);
-		String certificatePath = (String) img_path.getBody();
-
-		return certificatePath;
-	}
-
-	//커버이미지 업로드
-	@ResponseBody
-	@RequestMapping(value = "/uploadAjaxCover", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-	public String uploadAjaxCoverImg(MultipartFile file) throws Exception {
-
-		logger.info("커버이미지");
-		logger.info("originalName: " + file.getOriginalFilename());
-		String uploadpath = "almom/coverImage";
-
-		ResponseEntity<String> img_path = new ResponseEntity<>(
-				UploadFileUtils.uploadFile(uploadpath, file.getOriginalFilename(), file.getBytes()),
-				HttpStatus.CREATED);
-		String coverImagePath = (String) img_path.getBody();
-
-		return coverImagePath;
-	}
-
 	// 프로필 이미지 업로드
 	@ResponseBody
 	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")

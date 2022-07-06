@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.woosan.root.dto.TradeBoardDTO;
 import com.woosan.root.service.TradeBoardService;
 
 @Controller
@@ -33,6 +34,14 @@ public class TradeBoardController {
 	
 	@PostMapping("writeAdmit")
 	public String writeBoard(HttpServletRequest req) {
+		TradeBoardDTO dto = new TradeBoardDTO();
+		dto.setTitle(req.getParameter("title"));
+		dto.setId(req.getParameter("id"));
+		dto.setContent(req.getParameter("content"));
+		dto.setImg_addr(req.getParameter("img_addr"));
+		dto.setCate(req.getParameter("cate"));
+		dto.setPrice(Integer.valueOf(req.getParameter("price")));
+		tbs.writeBoard(dto);
 		return "tradeboard";
 	}
 	

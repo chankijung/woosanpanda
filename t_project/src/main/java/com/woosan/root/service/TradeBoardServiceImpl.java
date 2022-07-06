@@ -22,7 +22,7 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 
 	@Override
 	public void writeBoard(TradeBoardDTO dto) {
-		// TODO Auto-generated method stub
+		tbm.writeBoard(dto);
 		
 	}
 

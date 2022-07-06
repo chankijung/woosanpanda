@@ -9,4 +9,5 @@ import com.woosan.root.dto.TradeBoardDTO;
 @Repository
 public interface TradeBoardMapper {
 	public List<TradeBoardDTO> tradeBoardView();
+	public void writeBoard(TradeBoardDTO dto);
 }

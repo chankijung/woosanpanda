@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="utf-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -16,7 +16,7 @@
 </tr>
 <tr>
 <th>사진 업로드</th>
-<td><input type="file" name="image" id="image"></td>
+<td><input type="file" name="image_addr" id="image_addr"></td>
 </tr><tr>
 <th>내용</th>
 <td><textarea form="tradeWrite" required></textarea>
@@ -26,9 +26,14 @@
 </tr>
 <tr>
 <th>카테고리</th>
-<td><input type="radio" value="1. 가전제품" id="cate">
-</table>
+<td><input type="radio" value="1" id="cate">1. 가전제품
+<input type="radio" value="2" id="cate">2. 운동용품
+<input type="radio" value="3" id="cate">3. 사무용품
+<input type="radio" value="4" id="cate">4. 주방용품
+<input type="radio" value="5" id="cate">5. 취미용품</td>
 
+</table>
+<input type="hidden" value=${id } name="id" id="id">
 </form>
 
 

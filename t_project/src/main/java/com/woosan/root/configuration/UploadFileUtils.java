@@ -14,7 +14,7 @@ public class UploadFileUtils {
 
 	public static String uploadFile(String uploadPath, String originalName, byte[] byteData) throws Exception {
 		S3Util s3 = new S3Util();
-		String bucketName = "almombucket";
+		String bucketName = "aws-woosan-test01";
 		//랜덤의 uid 를 만들어준다.
 		UUID uid = UUID.randomUUID();
 
