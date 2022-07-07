@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
@@ -34,7 +36,37 @@
 			</c:forEach>
 		</c:if>
 	</table>
-	<input type="button" onclick="href='write'">
+	<form>
+	<input type="text" name="addr" id="addr">
+	<input type="text" name="addr2" id="addr2">
+	<input type="button" onclick="getAddrs()">
+	</form>
+	<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ed445263dd16bda07760fb634155a272&libraries=services"></script>
+<script>
+	function getAddrs(){
+		var geocoder = new kakao.maps.services.Geocoder();
+		// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+		if (navigator.geolocation) {
+		    
+		    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+		    navigator.geolocation.getCurrentPosition(function(position) {
+		     
+		        var lat = position.coords.latitude, // 위도
+		        lng = position.coords.longitude; // 경도
+		        var coord = new kakao.maps.LatLng(lat, lng);
+		        var callback = function(result, status) {
+		            if (status === kakao.maps.services.Status.OK) {
+		                document.getElementById("addr").value= result[0].region_1depth_name
+				        document.getElementById("addr2").value= result[0].region_2depth_name
+		            }
+		        }
+		        geocoder.coord2RegionCode(coord.getLng(), coord.getLat(), callback);
+		        window.location.href="write?addr=${addr}&addr2=${addr2}"
+		    })
+		}
+	}
+	</script>
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
 		crossorigin="anonymous"></script>

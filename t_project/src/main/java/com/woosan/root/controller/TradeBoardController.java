@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.woosan.root.dto.TradeBoardDTO;
 import com.woosan.root.service.TradeBoardService;
@@ -28,12 +29,15 @@ public class TradeBoardController {
 	}
 	
 	@GetMapping("write")
-	public String write() {
+	public String write(Model model, HttpServletRequest req) {
+		model.addAttribute("id", "admin");
+		model.addAttribute("addr",(String)req.getAttribute("addr"));
+		model.addAttribute("addr2",(String)req.getAttribute("addr2"));
 		return "tradeWriteForm";
 	}
 	
 	@PostMapping("writeAdmit")
-	public String writeBoard(HttpServletRequest req) {
+	public String writeBoard(HttpServletRequest req, MultipartHttpServletRequest mul) {
 		TradeBoardDTO dto = new TradeBoardDTO();
 		dto.setTitle(req.getParameter("title"));
 		dto.setId(req.getParameter("id"));
@@ -41,7 +45,9 @@ public class TradeBoardController {
 		dto.setImg_addr(req.getParameter("img_addr"));
 		dto.setCate(req.getParameter("cate"));
 		dto.setPrice(Integer.valueOf(req.getParameter("price")));
-		tbs.writeBoard(dto);
+		dto.setAddr(req.getParameter("addr"));
+		dto.setAddr2(req.getParameter("addr2"));
+		tbs.writeBoard(dto,mul);
 		return "tradeboard";
 	}
 	

@@ -29,7 +29,8 @@
 		        var coord = new kakao.maps.LatLng(lat, lng);
 		        var callback = function(result, status) {
 		            if (status === kakao.maps.services.Status.OK) {
-		                console.log(result);
+		                console.log(result[0].region_1depth_name);
+		                console.log(result[0].region_2depth_name);
 		            }
 		        }
 		        geocoder.coord2RegionCode(coord.getLng(), coord.getLat(), callback);

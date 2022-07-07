@@ -1,7 +1,7 @@
 package com.woosan.root.dto;
 
 public class TradeBoardDTO {
-	private String id, addr, title, content, img_addr,cate;
+	private String id, addr, addr2, title, content, img_addr,cate;
 	private int write_no,status,hit,price;
 	public int getPrice() {
 		return price;
@@ -11,6 +11,12 @@ public class TradeBoardDTO {
 	}
 	public String getId() {
 		return id;
+	}
+	public String getAddr2() {
+		return addr2;
+	}
+	public void setAddr2(String addr2) {
+		this.addr2 = addr2;
 	}
 	public void setId(String id) {
 		this.id = id;

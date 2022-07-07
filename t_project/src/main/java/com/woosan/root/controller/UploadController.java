@@ -28,8 +28,6 @@ import com.woosan.root.configuration.UploadFileUtils;
 @Controller
 public class UploadController {
 
-	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
-
 	@Inject
 	private ImageService service;
 
@@ -44,7 +42,6 @@ public class UploadController {
 	public String uploadAjax(MultipartFile file, String str, HttpSession session, HttpServletRequest request,
 			Model model) throws Exception {
 
-		logger.info("originalName: " + file.getOriginalFilename());
 		//프로필 이미지의 추가경로
 		String uploadpath = "almom/profileImage";
 
@@ -53,15 +50,10 @@ public class UploadController {
 				HttpStatus.CREATED);
 
 		String user_imgPath = (String) img_path.getBody();
-
-		logger.info(user_imgPath);
-
 		UserVO vo = new UserVO();
 		vo.setUser_profileImagePath(user_imgPath);
 		UserVO userSession = (UserVO) session.getAttribute("login");
 		vo.setUser_id(userSession.getUser_id());
-		logger.info("file name : " + user_imgPath);
-
 		userService.uploadImg(vo);
 
 		userSession.setUser_profileImagePath(user_imgPath);
@@ -76,12 +68,9 @@ public class UploadController {
 	@ResponseBody
 	@RequestMapping("/displayFile")
 	public ResponseEntity<byte[]> displayFile(String fileName, String directory) throws Exception {
-		logger.info(directory);
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
 		HttpURLConnection uCon = null;
-		logger.info("FILE NAME: " + fileName);
-
 		String inputDirectory = null;
 		if(directory.equals("profile")) {
 			inputDirectory = "almom/profileImage";
@@ -150,8 +139,6 @@ public class UploadController {
 	@RequestMapping(value = "/deleteFileDB", method = RequestMethod.POST)
 	public ResponseEntity<String> deleteFileDB(String fileName, String directory)throws Exception {
 
-		logger.info("delete file: " + fileName);
-		logger.info("delete foloder:"+directory);
 		String inputDirectory = null;
 		if(directory.equals("profile")) {
 			inputDirectory = "almom/profileImage";
