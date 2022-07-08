@@ -10,4 +10,6 @@ import com.woosan.root.dto.TradeBoardDTO;
 public interface TradeBoardMapper {
 	public List<TradeBoardDTO> tradeBoardView();
 	public void writeBoard(TradeBoardDTO dto);
+	public TradeBoardDTO searchNum(String write_no);
+	public void updateHit(String write_no);
 }

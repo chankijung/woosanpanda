@@ -24,8 +24,12 @@
 		select * from trade order by write_no desc
 	</select>
 	<insert id="writeBoard">
-		insert into trade(id, addr, addr2, title, content, status, img_addr, hit,
-		cate, price) values(${id},${addr}, ${addr2},
-		${title},${content},0,${img_addr},0,${cate},${price})
+		insert into trade(id, addr, addr2, title, content, status, img_addr, hit, cate, price) values(#{id},#{addr},#{addr2},#{title},#{content},0,#{img_addr},0,#{cate},#{price})
 	</insert>
+	<select id="searchNum" resultMap="trade">
+	select * from trade where write_no=#{write_no}
+	</select>
+	<update id="updateHit">
+		update trade set hit=hit+1 where write_no=#{write_no}
+	</update>
 </mapper>

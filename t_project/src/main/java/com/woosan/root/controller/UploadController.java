@@ -73,7 +73,7 @@ public class UploadController {
 		HttpURLConnection uCon = null;
 		String inputDirectory = null;
 		if(directory.equals("profile")) {
-			inputDirectory = "almom/profileImage";
+			inputDirectory = "trade/thumbnail";
 		}
 		else if(directory.equals("certificate")) {
 			inputDirectory = "almom/certificate";

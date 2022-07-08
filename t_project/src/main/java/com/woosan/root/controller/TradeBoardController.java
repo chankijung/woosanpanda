@@ -1,21 +1,32 @@
 package com.woosan.root.controller;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.amazonaws.util.IOUtils;
+import com.woosan.root.configuration.S3Util;
 import com.woosan.root.dto.TradeBoardDTO;
 import com.woosan.root.service.TradeBoardService;
 
 @Controller
 public class TradeBoardController {
 	@Autowired TradeBoardService tbs;
+	S3Util s3 = new S3Util();
+	String bucketName = "aws-woosan-test01";
 
 	@GetMapping("tradeboard")
 	public String board(Model model) {
@@ -49,6 +60,63 @@ public class TradeBoardController {
 		dto.setAddr2(req.getParameter("addr2"));
 		tbs.writeBoard(dto,mul);
 		return "tradeboard";
+	}
+	//이미지 파일 띄우기
+	@SuppressWarnings("resource")
+	@ResponseBody
+	@RequestMapping("/displayFile")
+	public ResponseEntity<byte[]> displayFile(String fileName, String directory) throws Exception {
+		InputStream in = null;
+		ResponseEntity<byte[]> entity = null;
+		HttpURLConnection uCon = null;
+		String inputDirectory = null;
+		if(directory.equals("thumbnail")) {
+			inputDirectory = "trade/thumbnail";
+		}
+		else if(directory.equals("profile")) {
+			inputDirectory = "member/profile";
+		}else {
+			inputDirectory = "almom/coverImage";
+		}
+
+
+
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			java.net.URL url;
+			try {
+				url = new java.net.URL(s3.getFileURL(bucketName, inputDirectory+fileName));
+				uCon = (HttpURLConnection) url.openConnection();
+				in = uCon.getInputStream(); // 이미지를 불러옴
+			} catch (Exception e) {
+				url = new java.net.URL(s3.getFileURL(bucketName, "default.jpg"));
+				uCon = (HttpURLConnection) url.openConnection();
+				in = uCon.getInputStream();
+			}
+
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		} finally {
+			in.close();
+		}
+		return entity;
+	}
+	@GetMapping("tradeboardView")
+	public String tradeboardView(HttpServletRequest req,Model model) {
+		String write_no = req.getParameter("write_no");
+		TradeBoardDTO dto = tbs.searchNum(write_no);
+		model.addAttribute("id",dto.getId());
+		model.addAttribute("image_addr",dto.getImg_addr());
+		model.addAttribute("title",dto.getTitle());
+		model.addAttribute("content",dto.getContent());
+		model.addAttribute("price",dto.getPrice());
+		model.addAttribute("cate",dto.getCate());
+		model.addAttribute("addr",dto.getAddr());
+		model.addAttribute("addr2",dto.getAddr2());
+		tbs.updateHit(write_no);
+		return "tradeboardView";
 	}
 	
 	

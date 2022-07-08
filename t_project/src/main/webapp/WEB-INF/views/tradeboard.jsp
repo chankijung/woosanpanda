@@ -17,7 +17,7 @@
 			<th scope="col">글 제목</th>
 			<th scope="col">조회수</th>
 			<th scope="col">작성자</th>
-			<th scope="col">글 작성시간</th>
+			<th scope="col">글 작성일자</th>
 		</tr>
 		<c:if test="${empty list}">
 			<tr>
@@ -28,10 +28,10 @@
 			<c:forEach var="dto" items="${list }">
 				<tr>
 					<td scope="row">${dto.write_no }</td>
-					<td><a href="contentView?title=${dto.title}">${dto.title }</a></td>
+					<td><a href="tradeboardView?write_no=${dto.write_no}">${dto.title }</a></td>
 					<td>${dto.hit }</td>
 					<td>${dto.id }</td>
-					<td>${dto.saveDate }</td>
+					<td>${dto.date }</td>
 				</tr>
 			</c:forEach>
 		</c:if>
@@ -57,8 +57,8 @@
 		        var coord = new kakao.maps.LatLng(lat, lng);
 		        var callback = function(result, status) {
 		            if (status === kakao.maps.services.Status.OK) {
-		                document.getElementById("addr").value= result[0].region_1depth_name
-				        document.getElementById("addr2").value= result[0].region_2depth_name
+		            	document.getElementById("addr").value=result[0].region_1depth_name;
+		            	document.getElementById("addr2").value=result[0].region_2depth_name;
 		            }
 		        }
 		        geocoder.coord2RegionCode(coord.getLng(), coord.getLat(), callback);

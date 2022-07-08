@@ -51,4 +51,15 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 		
 	}
 
+	@Override
+	public TradeBoardDTO searchNum(String write_no) {
+		TradeBoardDTO dto = tbm.searchNum(write_no);
+		return dto;
+	}
+
+	@Override
+	public void updateHit(String write_no) {
+		tbm.updateHit(write_no);
+	}
+
 }
