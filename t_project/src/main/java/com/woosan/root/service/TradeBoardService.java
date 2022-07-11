@@ -11,4 +11,5 @@ public interface TradeBoardService {
 	public void writeBoard(TradeBoardDTO dto, MultipartHttpServletRequest mul);
 	public TradeBoardDTO searchNum(String write_no);
 	public void updateHit(String write_no);
+	public String cateSetting(String cate);
 }

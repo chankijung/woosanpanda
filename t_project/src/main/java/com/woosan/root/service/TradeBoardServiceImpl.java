@@ -62,4 +62,22 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 		tbm.updateHit(write_no);
 	}
 
+	@Override
+	public String cateSetting(String cate) {
+		switch (cate) {
+		case "1":
+			return "가전제품";
+		case "2":
+			return "운동용품";
+		case "3":
+			return "사무용품";
+		case "4":
+			return "주방용품";
+		case "5":
+			return "취미용품";
+		default:
+			return "기타";
+		}
+	}
+
 }

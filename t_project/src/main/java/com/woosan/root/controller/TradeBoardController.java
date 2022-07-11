@@ -24,29 +24,30 @@ import com.woosan.root.service.TradeBoardService;
 
 @Controller
 public class TradeBoardController {
-	@Autowired TradeBoardService tbs;
+	@Autowired
+	TradeBoardService tbs;
 	S3Util s3 = new S3Util();
 	String bucketName = "aws-woosan-test01";
 
 	@GetMapping("tradeboard")
 	public String board(Model model) {
-		model.addAttribute("list",tbs.tradeBoardView());
+		model.addAttribute("list", tbs.tradeBoardView());
 		return "tradeboard";
 	}
-	
+
 	@GetMapping("chat")
 	public String chat() {
 		return "chat";
 	}
-	
+
 	@GetMapping("write")
 	public String write(Model model, HttpServletRequest req) {
 		model.addAttribute("id", "admin");
-		model.addAttribute("addr",(String)req.getAttribute("addr"));
-		model.addAttribute("addr2",(String)req.getAttribute("addr2"));
+		model.addAttribute("addr", (String) req.getAttribute("addr"));
+		model.addAttribute("addr2", (String) req.getAttribute("addr2"));
 		return "tradeWriteForm";
 	}
-	
+
 	@PostMapping("writeAdmit")
 	public String writeBoard(HttpServletRequest req, MultipartHttpServletRequest mul) {
 		TradeBoardDTO dto = new TradeBoardDTO();
@@ -58,10 +59,11 @@ public class TradeBoardController {
 		dto.setPrice(Integer.valueOf(req.getParameter("price")));
 		dto.setAddr(req.getParameter("addr"));
 		dto.setAddr2(req.getParameter("addr2"));
-		tbs.writeBoard(dto,mul);
+		tbs.writeBoard(dto, mul);
 		return "tradeboard";
 	}
-	//이미지 파일 띄우기
+
+	// 이미지 파일 띄우기
 	@SuppressWarnings("resource")
 	@ResponseBody
 	@RequestMapping("/displayFile")
@@ -70,22 +72,19 @@ public class TradeBoardController {
 		ResponseEntity<byte[]> entity = null;
 		HttpURLConnection uCon = null;
 		String inputDirectory = null;
-		if(directory.equals("thumbnail")) {
+		if (directory.equals("thumbnail")) {
 			inputDirectory = "trade/thumbnail";
-		}
-		else if(directory.equals("profile")) {
+		} else if (directory.equals("profile")) {
 			inputDirectory = "member/profile";
-		}else {
+		} else {
 			inputDirectory = "almom/coverImage";
 		}
-
-
 
 		try {
 			HttpHeaders headers = new HttpHeaders();
 			java.net.URL url;
 			try {
-				url = new java.net.URL(s3.getFileURL(bucketName, inputDirectory+fileName));
+				url = new java.net.URL(s3.getFileURL(bucketName, inputDirectory + fileName));
 				uCon = (HttpURLConnection) url.openConnection();
 				in = uCon.getInputStream(); // 이미지를 불러옴
 			} catch (Exception e) {
@@ -103,21 +102,21 @@ public class TradeBoardController {
 		}
 		return entity;
 	}
+
 	@GetMapping("tradeboardView")
-	public String tradeboardView(HttpServletRequest req,Model model) {
+	public String tradeboardView(HttpServletRequest req, Model model) {
 		String write_no = req.getParameter("write_no");
 		TradeBoardDTO dto = tbs.searchNum(write_no);
-		model.addAttribute("id",dto.getId());
-		model.addAttribute("image_addr",dto.getImg_addr());
-		model.addAttribute("title",dto.getTitle());
-		model.addAttribute("content",dto.getContent());
-		model.addAttribute("price",dto.getPrice());
-		model.addAttribute("cate",dto.getCate());
-		model.addAttribute("addr",dto.getAddr());
-		model.addAttribute("addr2",dto.getAddr2());
+		model.addAttribute("id", dto.getId());
+		model.addAttribute("image_addr", dto.getImg_addr());
+		model.addAttribute("title", dto.getTitle());
+		model.addAttribute("content", dto.getContent());
+		model.addAttribute("price", dto.getPrice());
+		model.addAttribute("cate",tbs.cateSetting(dto.getCate()));
+		model.addAttribute("addr", dto.getAddr());
+		model.addAttribute("addr2", dto.getAddr2());
 		tbs.updateHit(write_no);
 		return "tradeboardView";
 	}
-	
-	
+
 }

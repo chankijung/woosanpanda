@@ -20,6 +20,16 @@
 		<result property="price" column="price" />
 		<result property="addr2" column="addr2" />
 	</resultMap>
+	<resultMap type="com.woosan.root.dto.TradeBoardReplyDTO" id="tReply">
+	<result property="id" column="id"/>
+	<result property="date" column="date"/>
+	<result property="content" column="content"/>
+	<result property="rate" column="rate"/>
+	<result property="write_no" column="write_no"/>
+	<result property="date" column="date"/>
+	<result property="reply_no" column="reply_no"/>
+	<result property="reply_level" column="reply_level"/>
+	</resultMap>
 	<select id="tradeBoardView" resultMap="trade">
 		select * from trade order by write_no desc
 	</select>
@@ -32,4 +42,7 @@
 	<update id="updateHit">
 		update trade set hit=hit+1 where write_no=#{write_no}
 	</update>
+	<select id="tradeReplyView" resultMap="tReply">
+	select * from tReply where write_no=#{write_no} order by reply_no asc, reply_level asc, reply_chkNo asc
+	</select>
 </mapper>

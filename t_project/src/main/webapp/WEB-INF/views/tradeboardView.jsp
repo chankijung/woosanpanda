@@ -5,13 +5,14 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 	<%@ include file="header.jsp"%>
 	<table>
 	<tr>
 	<th>이미지</th>
-	<td><img id="profileImg" src="/displayFile?fileName=${image_addr}&directory=thumbnail"></td>
+	<td><img id="profileImg" src="displayFile?fileName=${image_addr}&directory=thumbnail"></td>
 	</tr>
 	<tr>
 	<th>글 번호</th>
@@ -30,14 +31,36 @@
 	</tr>
 	<tr>
 	<th>카테고리</th>
-	<td><label id="category"></label></td>
+	<td>${cate }</td>
 	</tr>
 	<tr>
 	<th>가격</th>
 	<td>${price }</td>
 	</tr>
 	</table>
-
+	<hr>
+	<table>
+	<c:forEach var=dto items="${list}">
+	<tr>
+	<th>글쓴이</th>
+	<td>${dto.id }</td>
+	</tr>
+	<tr>
+	<th>별점</th>
+	<td>${dto.rate }</td>
+	</tr>
+	<tr>
+	<th>댓글</th>
+	<td>${dto.content }</td>
+	</tr>
+	<tr>
+	<th>작성시간</th>
+	<td>${dto.date }</td>
+	</tr>
+	</c:forEach>
+	</table>
+	
+	
   
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
