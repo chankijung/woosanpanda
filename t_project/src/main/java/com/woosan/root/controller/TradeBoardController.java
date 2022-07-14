@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -116,6 +117,14 @@ public class TradeBoardController {
 		model.addAttribute("addr", dto.getAddr());
 		model.addAttribute("addr2", dto.getAddr2());
 		tbs.updateHit(write_no);
+		model.addAttribute("list",tbs.tradeReplyView(write_no));
+		model.addAttribute("write_no",dto.getWrite_no());
+		return "tradeboardView";
+	}
+	
+	@PostMapping("writeReply")
+	public String writeReply(@RequestParam String level, HttpServletRequest req, @RequestParam String reply_no, @RequestParam String reply_chkNum) {
+		tbs.writeReply(req, level, reply_no, reply_chkNum);
 		return "tradeboardView";
 	}
 

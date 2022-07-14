@@ -20,29 +20,43 @@
 		<result property="price" column="price" />
 		<result property="addr2" column="addr2" />
 	</resultMap>
-	<resultMap type="com.woosan.root.dto.TradeBoardReplyDTO" id="tReply">
-	<result property="id" column="id"/>
-	<result property="date" column="date"/>
-	<result property="content" column="content"/>
-	<result property="rate" column="rate"/>
-	<result property="write_no" column="write_no"/>
-	<result property="date" column="date"/>
-	<result property="reply_no" column="reply_no"/>
-	<result property="reply_level" column="reply_level"/>
+	<resultMap type="com.woosan.root.dto.TradeBoardReply"
+		id="tradeReply">
+		<result property="id" column="id" />
+		<result property="date" column="date" />
+		<result property="content" column="content" />
+		<result property="rate" column="rate" />
+		<result property="write_no" column="write_no" />
+		<result property="date" column="date" />
+		<result property="reply_no" column="reply_no" />
+		<result property="reply_level" column="reply_level" />
+		<result property="seq" column="seq" />
 	</resultMap>
 	<select id="tradeBoardView" resultMap="trade">
-		select * from trade order by write_no desc
+		select * from trade order
+		by write_no desc
 	</select>
 	<insert id="writeBoard">
-		insert into trade(id, addr, addr2, title, content, status, img_addr, hit, cate, price) values(#{id},#{addr},#{addr2},#{title},#{content},0,#{img_addr},0,#{cate},#{price})
+		insert into trade(id, addr, addr2, title, content,
+		status, img_addr, hit, cate, price)
+		values(#{id},#{addr},#{addr2},#{title},#{content},0,#{img_addr},0,#{cate},#{price})
 	</insert>
 	<select id="searchNum" resultMap="trade">
-	select * from trade where write_no=#{write_no}
+		select * from trade where write_no=#{write_no}
 	</select>
 	<update id="updateHit">
 		update trade set hit=hit+1 where write_no=#{write_no}
 	</update>
-	<select id="tradeReplyView" resultMap="tReply">
-	select * from tReply where write_no=#{write_no} order by reply_no asc, reply_level asc, reply_chkNo asc
+	<select id="tradeReplyView" resultMap="tradeReply">
+		select * from tradereply where write_no=#{write_no} order by reply_no asc,
+		reply_level asc, reply_chkNo asc
 	</select>
+	<select id="nextReplyNo">
+		select Max(reply_no) from tradereply
+	</select>
+	<insert id="writeReply">
+		insert into tradereply(id, reply_no, reply_level, reply_chkNo, rate,
+		write_no, content) values(#{id}, #{reply_no}, #{reply_level},
+		#{reply_chkNo}, #{rate}, #{write_no}, #{content})
+	</insert>
 </mapper>
