@@ -7,19 +7,22 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
-var number = null;
-var str = null;
-function show(seq){
-	if(number!=null){
-		$(str).close();
-		number=null;
-		str=null;
+	var number = null;
+	function show(clicked_id) {
+		if (number != null) {
+			document.getElementById(number).style.display = "none";
+			number = null;
+		}
+		number = "n" + clicked_id;
+		document.getElementById(number).style.display = "block";
 	}
-	number = seq;
-	str = "#reply^2?seq="+number;
-	$(str).show();
-}
-	</script>
+	function modify(){
+		window.location.href="tradeModify?write_no=${write_no}"
+	}
+	function delete(){
+		window.location.href="tradeDelete?write_no=${write_no}"
+	}
+</script>
 </head>
 <body>
 	<%@ include file="header.jsp"%>
@@ -52,6 +55,12 @@ function show(seq){
 			<th>가격</th>
 			<td>${price }</td>
 		</tr>
+		<c:if test="${id eq 'admin' }">
+			<tr>
+				<th><input type="button" onclick="modify()" value="수정"><input
+					type="button" onclick="delete()" value="삭제"></th>
+			</tr>
+		</c:if>
 	</table>
 	<hr>
 	<table id="reply">
@@ -61,45 +70,46 @@ function show(seq){
 			</tr>
 		</c:if>
 		<c:if test="${not empty list }">
-		<c:forEach var="dto" items="${list}">
-			<c:if test="${dto.reply_level eq 1 }">
+			<c:forEach var="dto" items="${list}">
+				<c:if test="${dto.reply_level eq 1 }">
+					<tr>
+						<th colspan="3">대댓글</th>
+					</tr>
+				</c:if>
 				<tr>
-					<th colspan="3">대댓글</th>
+					<th>글쓴이</th>
+					<td>${dto.id }</td>
 				</tr>
-			</c:if>
-			<tr>
-				<th>글쓴이</th>
-				<td>${dto.id }</td>
-			</tr>
-			<c:if test="${dto.reply_level eq 0 }">
+				<c:if test="${dto.reply_level eq 0 }">
+					<tr>
+						<th>별점</th>
+						<td>${dto.rate }</td>
+					</tr>
+				</c:if>
 				<tr>
-					<th>별점</th>
-					<td>${dto.rate }</td>
+					<th>내용</th>
+					<td>${dto.content }</td>
 				</tr>
-			</c:if>
-			<tr>
-				<th>내용</th>
-				<td>${dto.content }</td>
-			</tr>
-			<tr>
-				<th>작성시간</th>
-				<td>${dto.date }</td>
-			</tr>
-			<c:if test="${dto.reply_level eq 0 }">
 				<tr>
-					<th><input type="button" onclick="show(${dto.seq})"
-						value="대댓글 달기"></th>
+					<th>작성시간</th>
+					<td>${dto.date }</td>
 				</tr>
-				<tr style="display: none;" id="reply^2?seq=${dto.seq }">
-					<th>대댓글 달기</th>
-					<td><form action="writeReply?level=1&reply_chkNum=${reply_chkNo }&reply_no=${reply_no}" method="post">
-							<input type="text" name="content" id="content"><input
-								type="submit" value="작성"> <input type="hidden"
-								name="write_no" id="write_no" value="${write_no }">
-						</form></td>
-				</tr>
-			</c:if>
-		</c:forEach>
+				<c:if test="${dto.reply_level eq 0 }">
+					<tr>
+						<th><button id="${dto.seq }" onclick="show(this.id)">대댓글달기</button></th>
+					</tr>
+					<tr style="display: none;" id="n${dto.seq }">
+						<th>대댓글 달기</th>
+						<td><form
+								action="writeReply?level=1&reply_chkNum=${dto.reply_chkNo }&reply_no=${dto.reply_no}"
+								method="post">
+								<input type="text" name="content" id="content"><input
+									type="submit" value="작성"> <input type="hidden"
+									name="write_no" id="write_no" value="${write_no }">
+							</form></td>
+					</tr>
+				</c:if>
+			</c:forEach>
 		</c:if>
 	</table>
 	<form action="writeReply?level=0" method="post" id="tradereply">
@@ -121,10 +131,10 @@ function show(seq){
 				<th><input type="submit" value="작성">
 			</tr>
 		</table>
-		<input type="hidden" name="write_no" id="write_no" value="${write_no }">
-	
-			<input type="hidden" name="reply_no" id="reply_no" value="0">
-			<input type="hidden" name="reply_chkNum" id="reply_chkNum" value="0">
+		<input type="hidden" name="write_no" id="write_no"
+			value="${write_no }"> <input type="hidden" name="reply_no"
+			id="reply_no" value="${max_replyno +1}"> <input type="hidden"
+			name="reply_chkNum" id="reply_chkNum" value="0">
 	</form>
 
 

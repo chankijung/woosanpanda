@@ -17,5 +17,4 @@ public interface TradeBoardService {
 	public String cateSetting(String cate);
 	public List<TradeBoardReply> tradeReplyView(String write_no);
 	public void writeReply(HttpServletRequest req, String level, String reply_no, String reply_chkNum);
-	public int nextReplyNo();
 }

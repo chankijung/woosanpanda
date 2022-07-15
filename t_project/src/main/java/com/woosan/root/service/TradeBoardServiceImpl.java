@@ -89,11 +89,6 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 	}
 	
 	@Override
-	public int nextReplyNo() {
-		return tbm.nextReplyNo();
-	}
-
-	@Override
 	public void writeReply(HttpServletRequest req, String level, String reply_no, String reply_chkNum) {
 		TradeBoardReply tr = new TradeBoardReply();
 		tr.setContent(req.getParameter("content"));
@@ -102,12 +97,11 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 		if(Integer.valueOf(level)==0) {
 		tr.setRate(Integer.valueOf(req.getParameter("rate")));
 		tr.setReply_chkNo(0);
-		tr.setReply_no(nextReplyNo()+1);
 		}else {
 			tr.setRate(0);
 			tr.setReply_chkNo(Integer.valueOf(reply_chkNum)+1);
-			tr.setReply_no(Integer.valueOf(reply_no));
 		}
+		tr.setReply_no(Integer.valueOf(reply_no));
 		tr.setId("admin");
 		tbm.writeReply(tr);
 	}

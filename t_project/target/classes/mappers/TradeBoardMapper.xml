@@ -51,7 +51,7 @@
 		select * from tradereply where write_no=#{write_no} order by reply_no asc,
 		reply_level asc, reply_chkNo asc
 	</select>
-	<select id="nextReplyNo">
+	<select id="nextReplyNo" resultMap="tradeReply">
 		select Max(reply_no) from tradereply
 	</select>
 	<insert id="writeReply">

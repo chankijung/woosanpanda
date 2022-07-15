@@ -2,6 +2,7 @@ package com.woosan.root.controller;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.amazonaws.util.IOUtils;
 import com.woosan.root.configuration.S3Util;
 import com.woosan.root.dto.TradeBoardDTO;
+import com.woosan.root.dto.TradeBoardReply;
 import com.woosan.root.service.TradeBoardService;
 
 @Controller
@@ -113,17 +115,24 @@ public class TradeBoardController {
 		model.addAttribute("title", dto.getTitle());
 		model.addAttribute("content", dto.getContent());
 		model.addAttribute("price", dto.getPrice());
-		model.addAttribute("cate",tbs.cateSetting(dto.getCate()));
+		model.addAttribute("cate", tbs.cateSetting(dto.getCate()));
 		model.addAttribute("addr", dto.getAddr());
 		model.addAttribute("addr2", dto.getAddr2());
 		tbs.updateHit(write_no);
-		model.addAttribute("list",tbs.tradeReplyView(write_no));
-		model.addAttribute("write_no",dto.getWrite_no());
+		model.addAttribute("list", tbs.tradeReplyView(write_no));
+		List<TradeBoardReply> tbr = tbs.tradeReplyView(write_no);
+		if (tbr.isEmpty()) {
+			model.addAttribute("max_replyno",0);
+		}else {
+			model.addAttribute("max_replyno", tbr.get(tbr.size() - 1).getReply_no());
+		}
+		model.addAttribute("write_no", dto.getWrite_no());
 		return "tradeboardView";
 	}
-	
+
 	@PostMapping("writeReply")
-	public String writeReply(@RequestParam String level, HttpServletRequest req, @RequestParam String reply_no, @RequestParam String reply_chkNum) {
+	public String writeReply(@RequestParam String level, HttpServletRequest req, @RequestParam String reply_no,
+			@RequestParam String reply_chkNum) {
 		tbs.writeReply(req, level, reply_no, reply_chkNum);
 		return "tradeboardView";
 	}
