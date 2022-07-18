@@ -19,7 +19,7 @@
 	function modify(){
 		window.location.href="tradeModify?write_no=${write_no}"
 	}
-	function delete(){
+	function deletes(){
 		window.location.href="tradeDelete?write_no=${write_no}"
 	}
 </script>
@@ -58,7 +58,7 @@
 		<c:if test="${id eq 'admin' }">
 			<tr>
 				<th><input type="button" onclick="modify()" value="수정"><input
-					type="button" onclick="delete()" value="삭제"></th>
+					type="button" onclick="deletes()" value="삭제"></th>
 			</tr>
 		</c:if>
 	</table>

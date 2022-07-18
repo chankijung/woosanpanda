@@ -22,6 +22,7 @@ public class S3Util {
 
 	private AmazonS3 conn;
 
+	@SuppressWarnings("deprecation")
 	public S3Util() {
 		AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
 		ClientConfiguration clientConfig = new ClientConfiguration();

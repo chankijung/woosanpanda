@@ -42,21 +42,41 @@
 		values(#{id},#{addr},#{addr2},#{title},#{content},0,#{img_addr},0,#{cate},#{price})
 	</insert>
 	<select id="searchNum" resultMap="trade">
-		select * from trade where write_no=#{write_no}
+		select * from trade where
+		write_no=#{write_no}
 	</select>
 	<update id="updateHit">
 		update trade set hit=hit+1 where write_no=#{write_no}
 	</update>
 	<select id="tradeReplyView" resultMap="tradeReply">
-		select * from tradereply where write_no=#{write_no} order by reply_no asc,
-		reply_level asc, reply_chkNo asc
+		select * from tradereply
+		where write_no=#{write_no} order by reply_no asc,
+		reply_level asc,
+		reply_chkNo asc
 	</select>
 	<select id="nextReplyNo" resultMap="tradeReply">
-		select Max(reply_no) from tradereply
+		select Max(reply_no) from
+		tradereply
 	</select>
 	<insert id="writeReply">
-		insert into tradereply(id, reply_no, reply_level, reply_chkNo, rate,
-		write_no, content) values(#{id}, #{reply_no}, #{reply_level},
+		insert into tradereply(id, reply_no, reply_level,
+		reply_chkNo, rate,
+		write_no, content) values(#{id}, #{reply_no},
+		#{reply_level},
 		#{reply_chkNo}, #{rate}, #{write_no}, #{content})
 	</insert>
+	<update id="updateTrade">
+		update trade set title=#{title},
+		content=#{content},
+		img_addr=#{img_addr},
+		price=#{price},
+		cate=#{cate}
+		where write_no=#{write_no}
+	</update>
+	<delete id="tradeDelete">
+		delete from trade where write_no=#{write_no}
+	</delete>
+	<delete id="tradeReplyDelete">
+		delete from tradereply where write_no=#{write_no}
+	</delete>
 </mapper>

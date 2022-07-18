@@ -16,4 +16,7 @@ public interface TradeBoardMapper {
 	public List<TradeBoardReply> tradeReplyView(String write_no);
 	public int nextReplyNo();
 	public void writeReply(TradeBoardReply tr);
+	public void updateTrade(TradeBoardDTO dto);
+	public void tradeDelete(String write_no);
+	public void tradeReplyDelete(String write_no);
 }

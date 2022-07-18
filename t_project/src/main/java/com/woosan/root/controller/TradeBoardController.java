@@ -46,24 +46,22 @@ public class TradeBoardController {
 	@GetMapping("write")
 	public String write(Model model, HttpServletRequest req) {
 		model.addAttribute("id", "admin");
-		model.addAttribute("addr", (String) req.getAttribute("addr"));
-		model.addAttribute("addr2", (String) req.getAttribute("addr2"));
 		return "tradeWriteForm";
 	}
 
 	@PostMapping("writeAdmit")
-	public String writeBoard(HttpServletRequest req, MultipartHttpServletRequest mul) {
+	public String writeBoard(HttpServletRequest req, MultipartHttpServletRequest mul, Model model) {
 		TradeBoardDTO dto = new TradeBoardDTO();
 		dto.setTitle(req.getParameter("title"));
 		dto.setId(req.getParameter("id"));
 		dto.setContent(req.getParameter("content"));
-		dto.setImg_addr(req.getParameter("img_addr"));
 		dto.setCate(req.getParameter("cate"));
 		dto.setPrice(Integer.valueOf(req.getParameter("price")));
 		dto.setAddr(req.getParameter("addr"));
 		dto.setAddr2(req.getParameter("addr2"));
 		tbs.writeBoard(dto, mul);
-		return "tradeboard";
+		model.addAttribute("status",1);
+		return "intermediate";
 	}
 
 	// 이미지 파일 띄우기
@@ -110,31 +108,56 @@ public class TradeBoardController {
 	public String tradeboardView(HttpServletRequest req, Model model) {
 		String write_no = req.getParameter("write_no");
 		TradeBoardDTO dto = tbs.searchNum(write_no);
-		model.addAttribute("id", dto.getId());
-		model.addAttribute("image_addr", dto.getImg_addr());
-		model.addAttribute("title", dto.getTitle());
-		model.addAttribute("content", dto.getContent());
-		model.addAttribute("price", dto.getPrice());
-		model.addAttribute("cate", tbs.cateSetting(dto.getCate()));
-		model.addAttribute("addr", dto.getAddr());
-		model.addAttribute("addr2", dto.getAddr2());
+		tbs.tradeBoardViews(dto, model, write_no);
 		tbs.updateHit(write_no);
-		model.addAttribute("list", tbs.tradeReplyView(write_no));
-		List<TradeBoardReply> tbr = tbs.tradeReplyView(write_no);
-		if (tbr.isEmpty()) {
-			model.addAttribute("max_replyno",0);
-		}else {
-			model.addAttribute("max_replyno", tbr.get(tbr.size() - 1).getReply_no());
-		}
-		model.addAttribute("write_no", dto.getWrite_no());
 		return "tradeboardView";
 	}
 
 	@PostMapping("writeReply")
 	public String writeReply(@RequestParam String level, HttpServletRequest req, @RequestParam String reply_no,
-			@RequestParam String reply_chkNum) {
+			@RequestParam String reply_chkNum, Model model) {
 		tbs.writeReply(req, level, reply_no, reply_chkNum);
+		String write_no = req.getParameter("write_no");
+		TradeBoardDTO dto = tbs.searchNum(write_no);
+		tbs.tradeBoardViews(dto, model, write_no);
 		return "tradeboardView";
+	}
+	
+	@GetMapping("tradeModify")
+	public String tradeModify(@RequestParam String write_no, Model model) {
+		TradeBoardDTO dto = tbs.searchNum(write_no);
+		model.addAttribute("id",dto.getId());
+		model.addAttribute("title",dto.getTitle());
+		model.addAttribute("content",dto.getContent());
+		model.addAttribute("image_addr",dto.getImg_addr());
+		model.addAttribute("price",dto.getPrice());
+		model.addAttribute("cate",dto.getCate());
+		model.addAttribute("write_no", write_no);
+		return "tradeModify";
+	}
+	
+	@PostMapping("modifyAdmit")
+	public String modifyAdmit(HttpServletRequest req, MultipartHttpServletRequest mul,Model model) {
+		String write_no = req.getParameter("write_no");
+		TradeBoardDTO dto = tbs.searchNum(write_no);
+		dto.setTitle(req.getParameter("title"));
+		dto.setId(req.getParameter("id"));
+		dto.setContent(req.getParameter("content"));
+		dto.setImg_addr(req.getParameter("image_addr"));
+		dto.setCate(req.getParameter("cate"));
+		dto.setPrice(Integer.valueOf(req.getParameter("price")));
+		String og_img = req.getParameter("og_img");
+		tbs.modifyTrade(dto, mul, og_img);
+		model.addAttribute("status",0);
+		model.addAttribute("write_no",write_no);
+		return "intermediate";
+	}
+	
+	@GetMapping("tradeDelete")
+	public String tradeDelete(@RequestParam String write_no,Model model) {
+		tbs.tradeDelete(write_no);
+		model.addAttribute("status",1);
+		return "intermediate";
 	}
 
 }

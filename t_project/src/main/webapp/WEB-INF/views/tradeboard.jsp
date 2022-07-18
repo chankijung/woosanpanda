@@ -37,34 +37,11 @@
 		</c:if>
 	</table>
 	<form>
-	<input type="text" name="addr" id="addr">
-	<input type="text" name="addr2" id="addr2">
-	<input type="button" onclick="getAddrs()">
+	<input type="button" onclick="getAddrs()" value="글 작성">
 	</form>
-	<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ed445263dd16bda07760fb634155a272&libraries=services"></script>
 <script>
 	function getAddrs(){
-		var geocoder = new kakao.maps.services.Geocoder();
-		// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
-		if (navigator.geolocation) {
-		    
-		    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-		    navigator.geolocation.getCurrentPosition(function(position) {
-		     
-		        var lat = position.coords.latitude, // 위도
-		        lng = position.coords.longitude; // 경도
-		        var coord = new kakao.maps.LatLng(lat, lng);
-		        var callback = function(result, status) {
-		            if (status === kakao.maps.services.Status.OK) {
-		            	document.getElementById("addr").value=result[0].region_1depth_name;
-		            	document.getElementById("addr2").value=result[0].region_2depth_name;
-		            }
-		        }
-		        geocoder.coord2RegionCode(coord.getLng(), coord.getLat(), callback);
-		        window.location.href="write?addr=${addr}&addr2=${addr2}"
-		    })
-		}
+		window.location.href="write"
 	}
 	</script>
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
