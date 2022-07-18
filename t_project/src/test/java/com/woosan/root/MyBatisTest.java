@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.DisabledIf;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -17,11 +18,13 @@ public class MyBatisTest
 	private SqlSessionFactory sqlFactory;
 	
 	@Test
+	@DisabledIf
 	public void testFactory(){
 		System.out.println("\n >>>>>>>>>> sqlFactory 출력 : "+sqlFactory);
 	}
 	
 	@Test
+	@DisabledIf
 	public void testSession() throws Exception{
 		
 		try(SqlSession session = sqlFactory.openSession()){

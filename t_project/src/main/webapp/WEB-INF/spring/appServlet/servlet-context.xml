@@ -3,9 +3,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+	https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans 
+		https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		https://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -23,6 +26,32 @@
 	
 	<context:component-scan base-package="com.woosan.root" />
 	
+	<!-- <beans:bean id="mi" 
+		class="com.woosan.root.common.MemberInterceptor"/>
 	
+	<beans:bean id="login" 
+		class="com.woosan.root.common.LoginInterceptor"/>
+		
+	<interceptors>
+		<interceptor>
+			<mapping path="/index" />
+			<beans:ref bean="login" />
+		</interceptor>
+		
+		<interceptor>
+			
+			<mapping path="/index" /> 
+			<mapping path="/member/successLogin" />
+			
+			<mapping path="/member/memberInfo" />
+			<beans:ref bean="mi" />
+		</interceptor>
+	</interceptors>
 	
+	<beans:bean id="multipartResolver" 
+	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="52428800"/>
+		<beans:property name="defaultEncoding" value="utf-8"/>
+		
+	</beans:bean> -->
 </beans:beans>
