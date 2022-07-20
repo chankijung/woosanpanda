@@ -11,13 +11,13 @@ public class ChatSession {
     private static ArrayList<String> loginUser = new ArrayList<String>();
     
     // 로그인 시 ArrayList에 추가합니다.
-    public void addLoginUser(String email) {
-        loginUser.add(email);
+    public void addLoginUser(String id) {
+        loginUser.add(id);
     }
     
     // 로그아웃 시 ArrayList에서 제거합니다.
-    public void removeLoginUser(String email) {
-        loginUser.remove(email);
+    public void removeLoginUser(String id) {
+        loginUser.remove(id);
     }
  
     // 현재 로그인 되어 있는 유저 목록을 가져옵니다.

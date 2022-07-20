@@ -31,7 +31,7 @@ public class ChatController {
     ChatService cService;
     
     @Autowired
-    ProductService pService;
+    TradeBoardService tbs;
     
     @Autowired
     private ChatSession cSession;
@@ -45,14 +45,14 @@ public class ChatController {
      * @throws IOException
      */
     @RequestMapping(value="{roomId}.do")
-    public void messageList(@PathVariable String roomId, String userEmail, Model model, HttpServletResponse response) throws JsonIOException, IOException {
+    public void messageList(@PathVariable String roomId, String id, Model model, HttpServletResponse response) throws JsonIOException, IOException {
         
         List<ChatMessage> mList = cService.messageList(roomId);
         response.setContentType("application/json; charset=utf-8");
  
         // 안읽은 메세지의 숫자 0으로 바뀌기
         ChatMessage message = new ChatMessage();
-        message.setEmail(userEmail);
+        message.setId(id);
         message.setRoomId(roomId);
         cService.updateCount(message);
         
@@ -69,13 +69,11 @@ public class ChatController {
      */
     @ResponseBody
     @RequestMapping("createChat.do")
-    public String createChat(ChatRoom room, String userName, String userEmail, String masterNickname){
+    public String createChat(ChatRoom room, String userName, String masterNickname){
         
-        UserMaster m = pService.getProductDetail(masterNickname);
-        
-        room.setUserEmail(userEmail);
+        TradeBoardDTO m = tbs.chatSetup(masterNickname);
+    
         room.setUserName(userName);
-        room.setMasterEmail(m.getEmail());
         room.setMasterName(m.getmNickname());
         room.setMasterPic(m.getmProPicRe());
  
@@ -108,12 +106,12 @@ public class ChatController {
      * @throws IOException
      */
     @RequestMapping("chatRoomList.do")
-    public void createChat(ChatRoom room, ChatMessage message, String userEmail, HttpServletResponse response) throws JsonIOException, IOException{
-        List<ChatRoom> cList = cService.chatRoomList(userEmail);
+    public void createChat(ChatRoom room, ChatMessage message, String id, HttpServletResponse response) throws JsonIOException, IOException{
+        List<ChatRoom> cList = cService.chatRoomList(id);
         
         for(int i = 0; i < cList.size(); i++) {
             message.setRoomId(cList.get(i).getRoomId());
-            message.setEmail(userEmail);
+            message.setId(id);
             int count = cService.selectUnReadCount(message);
             cList.get(i).setUnReadCount(count);
         }

@@ -4,11 +4,9 @@ public class ChatRoom {
     
     private String roomId;        // 방 번호
     
-    private String userEmail;    // 사용자 이메일
     private String userName;    // 사용자 이름
     private String userPic;        // 사용자 사진
     
-    private String masterEmail; // 상대방 이메일
     private String masterName;    // 상대방 이름
     private String masterPic;    // 상대방 사진
     
@@ -22,10 +20,8 @@ public class ChatRoom {
             String masterName, String masterPic, int unReadCount) {
         super();
         this.roomId = roomId;
-        this.userEmail = userEmail;
         this.userName = userName;
         this.userPic = userPic;
-        this.masterEmail = masterEmail;
         this.masterName = masterName;
         this.masterPic = masterPic;
         this.unReadCount = unReadCount;
@@ -37,14 +33,6 @@ public class ChatRoom {
  
     public void setRoomId(String roomId) {
         this.roomId = roomId;
-    }
- 
-    public String getUserEmail() {
-        return userEmail;
-    }
- 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
     }
  
     public String getUserName() {
@@ -61,14 +49,6 @@ public class ChatRoom {
  
     public void setUserPic(String userPic) {
         this.userPic = userPic;
-    }
- 
-    public String getMasterEmail() {
-        return masterEmail;
-    }
- 
-    public void setMasterEmail(String masterEmail) {
-        this.masterEmail = masterEmail;
     }
  
     public String getMasterName() {
@@ -97,8 +77,8 @@ public class ChatRoom {
  
     @Override
     public String toString() {
-        return "ChatRoom [roomId=" + roomId + ", userEmail=" + userEmail + ", userName=" + userName + ", userPic="
-                + userPic + ", masterEmail=" + masterEmail + ", masterName=" + masterName + ", masterPic=" + masterPic
+        return "ChatRoom [roomId=" + roomId + ", userName=" + userName + ", userPic="
+                + userPic + ", masterName=" + masterName + ", masterPic=" + masterPic
                 + ", unReadCount=" + unReadCount + "]";
     }
 }

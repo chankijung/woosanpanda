@@ -5,8 +5,7 @@ public class ChatMessage {
     private String roomId;            // 방 번호
     private String messageId;        // 메세지 번호
     private String message;            // 메세지 내용
-    private String name;            // 보낸이 이름
-    private String email;            // 보낸이 이메일
+    private String id;            // 보낸이 이름
     private int unReadCount;        // 안 읽은 메세지 수
     private int sessionCount;        // 현재 세션 수
     
@@ -14,14 +13,13 @@ public class ChatMessage {
         super();
     }
  
-    public ChatMessage(String roomId, String messageId, String message, String name, String email, int unReadCount,
+    public ChatMessage(String roomId, String messageId, String message, String id, int unReadCount,
             int sessionCount) {
         super();
         this.roomId = roomId;
         this.messageId = messageId;
         this.message = message;
-        this.name = name;
-        this.email = email;
+        this.id = id;
         this.unReadCount = unReadCount;
         this.sessionCount = sessionCount;
     }
@@ -50,20 +48,12 @@ public class ChatMessage {
         this.message = message;
     }
  
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
  
-    public void setName(String name) {
-        this.name = name;
-    }
- 
-    public String getEmail() {
-        return email;
-    }
- 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setName(String id) {
+        this.id = id;
     }
  
     public int getUnReadCount() {
@@ -84,7 +74,7 @@ public class ChatMessage {
  
     @Override
     public String toString() {
-        return "ChatMessage [roomId=" + roomId + ", messageId=" + messageId + ", message=" + message + ", name=" + name
-                + ", email=" + email + ", unReadCount=" + unReadCount + ", sessionCount=" + sessionCount + "]";
+        return "ChatMessage [roomId=" + roomId + ", messageId=" + messageId + ", message=" + message + ", id=" + id
+                + ", unReadCount=" + unReadCount + ", sessionCount=" + sessionCount + "]";
     }
 }
