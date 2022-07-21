@@ -169,4 +169,9 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 		model.addAttribute("write_no", dto.getWrite_no());
 	}
 
+	@Override
+	public TradeBoardDTO chatSetup(String MasterNickname) {
+		return tbm.chatSetup(MasterNickname);
+	}
+
 }

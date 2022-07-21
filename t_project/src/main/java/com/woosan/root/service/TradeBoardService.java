@@ -21,4 +21,5 @@ public interface TradeBoardService {
 	public void modifyTrade(TradeBoardDTO dto, MultipartHttpServletRequest mul, String og_img);
 	public void tradeDelete(String write_no);
 	public void tradeBoardViews(TradeBoardDTO dto, Model model, String write_no);
+	public TradeBoardDTO chatSetup(String MasterNickname);
 }

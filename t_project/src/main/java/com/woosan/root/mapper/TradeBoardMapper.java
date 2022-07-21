@@ -19,4 +19,5 @@ public interface TradeBoardMapper {
 	public void updateTrade(TradeBoardDTO dto);
 	public void tradeDelete(String write_no);
 	public void tradeReplyDelete(String write_no);
+	public TradeBoardDTO chatSetup(String id);
 }
