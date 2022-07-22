@@ -17,5 +17,7 @@ public interface MemberMapper {
 		public void keepLogin(Map<String, Object> map);
 		
 		public MemberDTO getSessionId(String s_id);
+
+		public int idCheck(String id);//아이디 중복
 }
 

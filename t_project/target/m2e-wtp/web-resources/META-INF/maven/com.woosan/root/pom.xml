@@ -149,7 +149,7 @@
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
-			<version>3.4.6</version>
+			<version>3.4.1</version>
 		</dependency>
 
 		<!-- commons-fileupload 파일 업/다운로드 -->

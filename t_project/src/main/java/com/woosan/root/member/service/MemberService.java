@@ -13,5 +13,6 @@ public interface MemberService {
 	public int register(MemberDTO dto);
 	public void keepLogin(String id, Date limitDate, String sessionId);
 	public MemberDTO getSessionId(String s_id);
+	public int idCheck(String id);//아이디 중복체크
 	
 }

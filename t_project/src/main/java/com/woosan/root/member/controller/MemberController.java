@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.woosan.root.member.common.SessionName;
@@ -121,5 +122,12 @@ public class MemberController implements SessionName {
 			return "redirect:login";
 		}
 		return "redirect:registerForm";
+	}
+	
+	@PostMapping("/idCheck")
+	@ResponseBody
+	public int idCheck(@RequestParam("id") String id) {
+		int cnt= ms.idCheck(id);
+		return cnt;
 	}
 }

@@ -53,6 +53,7 @@ public class MemberServiceImpl implements MemberService{
 	public void info(Model model, String id) {
 		model.addAttribute("info", mapper.logChk(id));
 	}
+	
 	public void insertMember(MemberDTO dto) {
 		
 	}
@@ -71,6 +72,12 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public MemberDTO getSessionId(String s_id) {
 		return mapper.getSessionId(s_id);
+	}
+	@Override
+	public int idCheck(String id) {
+		int cnt = mapper.idCheck(id);
+		System.out.println("cnt:"+cnt);
+		return cnt;
 	}
 	
 
