@@ -52,7 +52,7 @@ public class ChatMessage {
         return id;
     }
  
-    public void setName(String id) {
+    public void setId(String id) {
         this.id = id;
     }
  

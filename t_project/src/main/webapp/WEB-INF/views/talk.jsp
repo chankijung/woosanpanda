@@ -5,24 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <title>Document</title>
 <!-- Noto-Sans 폰트-->
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <!-- JUA 폰트-->
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="resources/css/talk.css">
-<audio id='audio_play' src='resources/pop.mp3'></audio>
-<script type="text/javascript"> 
-function play() { 
-    var audio = document.getElementById('audio_play'); 
-    if (audio.paused) { 
-        audio.play(); 
-    }else{ 
-        audio.pause(); 
-        audio.currentTime = 0 
-    } 
-} 
-</script>
 </head>
 <body>
     <!-- 채팅 아이콘 -->

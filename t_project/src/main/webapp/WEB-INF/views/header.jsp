@@ -47,13 +47,13 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> 게시판 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#">거래 게시판</a>
+						<a class="dropdown-item" href="tradeboard">거래 게시판</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="#">지역 게시판</a>
 						<!-- <a class="dropdown-item" href="#">Something else here</a> -->
 					</div></li>
-				<li class="nav-item"><a class="nav-link" href="#">회원정보</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">활성화된 채팅</a></li>
+				<li class="nav-item"><a class="nav-link" href="membership">회원정보</a></li>
+				<li class="nav-item"><a class="nav-link" href="talk">활성화된 채팅</a></li>
 				<!-- <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li> -->

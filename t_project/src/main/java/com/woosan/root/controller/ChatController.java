@@ -10,16 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
  
 import com.woosan.root.service.ChatService;
+import com.woosan.root.service.TradeBoardService;
 import com.woosan.root.dto.ChatMessage;
 import com.woosan.root.dto.ChatRoom;
 import com.woosan.root.dto.ChatSession;
-import com.fp.neezit.product.model.service.ProductService;
-import com.fp.neezit.user.model.vo.UserMaster;
+import com.woosan.root.dto.TradeBoardDTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
@@ -74,8 +75,8 @@ public class ChatController {
         TradeBoardDTO m = tbs.chatSetup(masterNickname);
     
         room.setUserName(userName);
-        room.setMasterName(m.getmNickname());
-        room.setMasterPic(m.getmProPicRe());
+        room.setMasterName(m.getId());
+        room.setMasterPic(m.getImg_addr());
  
         ChatRoom exist  = cService.searchChatRoom(room);
         
@@ -131,6 +132,11 @@ public class ChatController {
  
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         gson.toJson(chatSessionList,response.getWriter());
+    }
+    
+    @GetMapping("talk")
+    public String talk() {
+    	return "talk";
     }
     
 }

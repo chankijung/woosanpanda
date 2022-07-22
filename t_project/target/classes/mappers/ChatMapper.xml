@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="chatMapper">
+<mapper namespace="com.woosan.root.mapper.chatMapper">
  
-    <resultMap type="ChatRoom" id="chatRoomResultSet">
+    <resultMap type="com.woosan.root.dto.ChatRoom" id="chatRoomResultSet">
         <id property="roomId" column="ROOM_ID" />
         <result property="userName" column="USER_NAME" />        
         <result property="userPic" column="USER_PIC" />
@@ -10,7 +10,7 @@
         <result property="masterPic" column="MASTER_PIC" />
     </resultMap>
  
-    <resultMap type="ChatMessage" id="chatMessageResultSet">
+    <resultMap type="com.woosan.root.dto.ChatMessage" id="chatMessageResultSet">
         <id property="messageId" column="MESSAGE_ID" />
         <result property="roomId" column="ROOM_ID" />
         <result property="message" column="MESSAGE_CONTENT" />
@@ -20,7 +20,7 @@
     </resultMap>
     
     <!-- 신규 채팅방일 때 채팅 방 생성 -->
-    <insert id="createChat" parameterType="ChatRoom">
+    <insert id="createChat" parameterType="com.woosan.root.dto.ChatRoom">
         insert into CHATROOM values(SEQ_CHATROOM_ID.NEXTVAL, #{userName}, DEFAULT, #{masterName}, #{masterPic})
     </insert>
  
@@ -29,7 +29,7 @@
         WHERE ROOM_ID = #{roomId} 
     </select>
     
-    <insert id="insertMessage" parameterType="ChatMessage">
+    <insert id="insertMessage" parameterType="com.woosan.root.dto.ChatMessage">
         <if test="sessionCount == 1">
         INSERT INTO CHATMESSAGE VALUES(#{roomId}, SEQ_CHATMESSAGE_ID.NEXTVAL, #{message}, #{name}, #{id}, DEFAULT)
         </if>
@@ -43,7 +43,7 @@
         WHERE ROOM_ID = #{rooomId}
     </select>
     
-    <select id="searchChatRoom" parameterType="ChatRoom" resultMap="chatRoomResultSet">
+    <select id="searchChatRoom" parameterType="com.woosan.root.dto.ChatRoom" resultMap="chatRoomResultSet">
         SELECT * FROM CHATROOM
         WHERE USER_NAME = #{userName} AND MASTER_NAME = #{masterName}
     </select>
@@ -53,12 +53,12 @@
         WHERE USER_NAME = #{userName} OR MASTER_NAME = #{userName}
     </select>
     
-    <select id="selectUnReadCount" parameterType="ChatMessage" resultType="_int">
+    <select id="selectUnReadCount" parameterType="com.woosan.root.dto.ChatMessage" resultType="_int">
         SELECT COUNT(*) FROM CHATMESSAGE
         WHERE ROOM_ID = #{roomId} AND USER_NAME != #{userName} AND UNREAD_COUNT = 1
     </select>
     
-    <update id="updateCount" parameterType="ChatMessage">
+    <update id="updateCount" parameterType="com.woosan.root.dto.ChatMessage">
         UPDATE CHATMESSAGE
         SET UNREAD_COUNT = 0
         WHERE ROOM_ID = #{roomId} AND USER_NAME != #{userName} AND UNREAD_COUNT = 1
