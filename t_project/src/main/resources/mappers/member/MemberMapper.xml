@@ -27,6 +27,16 @@
 		insert into members(id, pw, addr,name,email,gender,phNum,per_cate)
 			values(#{id},#{pw},#{addr},#{name},#{email},#{gender},#{phNum},#{per_cate})
 	</insert>
+	<select id="idCnt" parameterType="MemberDTO" resultType="int">
+	<![CDATA[
+	select
+		count(*)
+	from
+		members
+	where
+		id = #{id}
+]]>	
+</select>
 	<update id="keepLogin">
 		update members set session_id=#{s}, 
 					limit_time=#{d} where id=#{id}	

@@ -48,7 +48,9 @@ public class MemberServiceImpl implements MemberService{
 				e.printStackTrace();
 		}
 		return result;
-	}
+	}	
+
+	
 	@Override
 	public void info(Model model, String id) {
 		model.addAttribute("info", mapper.logChk(id));
@@ -79,7 +81,7 @@ public class MemberServiceImpl implements MemberService{
 		System.out.println("cnt:"+cnt);
 		return cnt;
 	}
-	
+
 
 
 
