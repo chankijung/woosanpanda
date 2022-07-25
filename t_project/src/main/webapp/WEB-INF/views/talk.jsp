@@ -377,5 +377,7 @@
              return false;
         };
     </script>
+    <table>
+    </table>
 </body>
 </html>
