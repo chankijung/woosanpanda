@@ -13,7 +13,7 @@
 function ajaxChatRoomOpener(){
 	$.ajax({
 		url:"chatRoomList.do",
-	}
+	
 	data:{
 			userName:"${loggedId}"
 	},
@@ -21,9 +21,8 @@ function ajaxChatRoomOpener(){
 	async:false,
 	success:function(data){
 		
-		
 		})
-	}
+	
 	})
 </script>
 	<table>

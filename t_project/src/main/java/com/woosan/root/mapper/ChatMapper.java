@@ -11,7 +11,7 @@ public interface ChatMapper {
 	public void insertMessage(ChatMessage chatMessage);
 	public List<ChatMessage> messageList(String roomId);
 	public ChatRoom searchChatRoom(ChatRoom room);
-	public List<ChatRoom> chatRoomList(String id);
+	public List<ChatRoom> chatRoomList(String userName);
 	public int selectUnReadCount(ChatMessage chatMessage);
 	public int updateCount(ChatMessage chatMessage);
 }

@@ -47,7 +47,7 @@ public interface ChatService {
      * @param userEmail
      * @return
      */
-    List<ChatRoom> chatRoomList(String id);
+    List<ChatRoom> chatRoomList(String userName);
  
     /**
      * 채팅 읽지 않은 메세지 수 출력

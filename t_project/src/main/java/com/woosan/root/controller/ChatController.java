@@ -135,7 +135,8 @@ public class ChatController {
     }
     
     @GetMapping("talk")
-    public String talk() {
+    public String talk(Model model) {
+    	model.addAttribute("loginUser","admin");
     	return "talk";
     }
     

@@ -38,8 +38,8 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public List<ChatRoom> chatRoomList(String id) {
-		return cm.chatRoomList(id);
+	public List<ChatRoom> chatRoomList(String userName) {
+		return cm.chatRoomList(userName);
 	}
 
 	@Override
