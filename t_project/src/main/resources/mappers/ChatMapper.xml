@@ -20,16 +20,16 @@
     </resultMap>
     
     <!-- 신규 채팅방일 때 채팅 방 생성 -->
-    <insert id="createChat" parameterType="com.woosan.root.dto.ChatRoom">
+    <insert id="createChat">
         insert into CHATROOM values(SEQ_CHATROOM_ID.NEXTVAL, #{userName}, DEFAULT, #{masterName}, #{masterPic})
     </insert>
  
-    <select id="selectChatRoom" parameterType="string" resultMap="chatRoomResultSet">
+    <select id="selectChatRoom" resultMap="chatRoomResultSet">
         SELECT * FROM CHATROOM 
         WHERE ROOM_ID = #{roomId} 
     </select>
     
-    <insert id="insertMessage" parameterType="com.woosan.root.dto.ChatMessage">
+    <insert id="insertMessage">
         <if test="sessionCount == 1">
         INSERT INTO CHATMESSAGE VALUES(#{roomId}, SEQ_CHATMESSAGE_ID.NEXTVAL, #{message}, #{name}, #{id}, DEFAULT)
         </if>
@@ -38,27 +38,27 @@
         </if>
     </insert>
     
-    <select id="messageList" parameterType="string" resultMap="chatMessageResultSet">
+    <select id="messageList" resultMap="chatMessageResultSet">
         SELECT * FROM CHATMESSAGE
         WHERE ROOM_ID = #{rooomId}
     </select>
     
-    <select id="searchChatRoom" parameterType="com.woosan.root.dto.ChatRoom" resultMap="chatRoomResultSet">
+    <select id="searchChatRoom" resultMap="chatRoomResultSet">
         SELECT * FROM CHATROOM
         WHERE USER_NAME = #{userName} AND MASTER_NAME = #{masterName}
     </select>
     
-    <select id="chatRoomList" parameterType="string" resultMap="chatRoomResultSet">
+    <select id="chatRoomList" resultMap="chatRoomResultSet">
         SELECT * FROM CHATROOM
         WHERE USER_NAME = #{userName} OR MASTER_NAME = #{userName}
     </select>
     
-    <select id="selectUnReadCount" parameterType="com.woosan.root.dto.ChatMessage" resultType="_int">
+    <select id="selectUnReadCount" resultType="_int">
         SELECT COUNT(*) FROM CHATMESSAGE
         WHERE ROOM_ID = #{roomId} AND USER_NAME != #{userName} AND UNREAD_COUNT = 1
     </select>
     
-    <update id="updateCount" parameterType="com.woosan.root.dto.ChatMessage">
+    <update id="updateCount">
         UPDATE CHATMESSAGE
         SET UNREAD_COUNT = 0
         WHERE ROOM_ID = #{roomId} AND USER_NAME != #{userName} AND UNREAD_COUNT = 1

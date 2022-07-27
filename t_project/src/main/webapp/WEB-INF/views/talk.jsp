@@ -11,12 +11,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <!-- JUA 폰트-->
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="resources/css/talk.css">
 </head>
 <body>
     <!-- 채팅 아이콘 -->
     <div class="chatIcon font_jua">
-        <img src="resources/img/chat-icon.png" class="iconImg">
+        <img src="resources/img/chat-icon.jpg" class="iconImg">
     </div>
     <!-- 채팅 리스트 / 채팅 방 OPEN / CLOSE -->
     <script>
@@ -45,17 +44,17 @@
          });
     </script>
     <!-- 채팅 창 -->
-    <div class="chatContainer display-none">
+    <div class="chatContainer">
         <div class="chatTop">
             <div class="floatLeft" id="loginOn">
                 <img class="profile_img" id="setPic"><!-- src 사진 경로 동적 생성 -->
             </div>
             <div class="name_container font_noto" id="setName"><!-- 이름 동적 생성 --></div>
             <div class="floatRight">
-                <img src="resources/img/chat-close.png" class="btnImg close">
+                <img src="resources/img/chat-close.jpg" class="btnImg close">
             </div>
             <div class="floatRight">
-                <img src="resources/img/chat-minus.png" class="btnImg down">
+                <img src="resources/img/chat-minus.jpg" class="btnImg down">
             </div>
         </div>
         <div class="chatMiddle">
