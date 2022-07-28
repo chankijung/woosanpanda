@@ -10,18 +10,21 @@
 <body>
 	<%@ include file="header.jsp"%>
 	<script>
-function ajaxChatRoomOpener(){
+function ajaxChatRoomList(){
 	$.ajax({
-		url:"chatRoomList.do",
-	
-	data:{
-			userName:"${loggedId}"
-	},
+		url:"chatRoomList/"+$("#loggedId").val(),
+	type:"get",
 	dataType:"json",
 	async:false,
 	success:function(data){
-		
-		});
+		var HTMLOut="";
+		for(var idx in data){
+			HTMLOut+='<tr>';
+			HTMLOut+='<td onclick="openChatRoom('+data[idx].masterName+')">'+data[idx].masterName+'</td></tr>';
+		}
+		$("ChatRoom").append(HTMLOut)
+	}
+	)};
 	
 		let websocket;
      
@@ -49,17 +52,14 @@ function ajaxChatRoomOpener(){
              websocket.send(jsonData);
              console.log(websocket);
          }
+         function openChatRoom(x){
+        	 $("#ChatBox").css("display","");
+        	 $.
+         }
 </script>
-	<table>
-		<c:forEach var="dto" items="${chatRoom }">
-			<c:if test="${not empty chatRoom }">
-				<tr>
-					<th onclick="ajaxChatRoomOpener(${chatRoom.masterId })">
-						${chatRoom.masterId}</th>
-				</tr>
-			</c:if>
-		</c:forEach>
+	<table id="ChatRoom">
 	</table>
+	
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
 		crossorigin="anonymous"></script>
